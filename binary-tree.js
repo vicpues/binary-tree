@@ -4,27 +4,8 @@ function Tree(arr) {
     const root = _buildTree(arr);
 
     /** Prints a formatted version of the tree, starting at the root */
-    function print(node = root) {
-        printRecursive(node);
-
-        function printRecursive(node, prefix = "", isLeft = true) {
-            if (node === null) return;
-            if (node.right !== null) {
-                printRecursive(
-                    node.right,
-                    `${prefix}${isLeft ? "│   " : "    "}`,
-                    false,
-                );
-            }
-            console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
-            if (node.left !== null) {
-                printRecursive(
-                    node.left,
-                    `${prefix}${isLeft ? "    " : "│   "}`,
-                    true,
-                );
-            }
-        }
+    function print() {
+        _printRecursive(root);
     }
 
     return {
@@ -52,6 +33,26 @@ function Tree(arr) {
             root.right = buildRecursive(midpoint + 1, end);
 
             return root;
+        }
+    }
+
+    /** Prints a tree recursively, starting from \<node\> */
+    function _printRecursive(node, prefix = "", isLeft = true) {
+        if (node === null) return;
+        if (node.right !== null) {
+            _printRecursive(
+                node.right,
+                `${prefix}${isLeft ? "│   " : "    "}`,
+                false,
+            );
+        }
+        console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
+        if (node.left !== null) {
+            _printRecursive(
+                node.left,
+                `${prefix}${isLeft ? "    " : "│   "}`,
+                true,
+            );
         }
     }
 }
