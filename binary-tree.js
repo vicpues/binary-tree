@@ -32,6 +32,7 @@ function Tree(arr) {
 
     return {
         print,
+        insert,
     };
 
     // PRIVATE METHODS
