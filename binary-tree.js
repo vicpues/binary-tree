@@ -1,11 +1,33 @@
 module.exports = Tree;
 
 function Tree(arr) {
-    const root = _buildTree(arr);
+    let root = _buildTree(arr);
 
     /** Prints a formatted version of the tree, starting at the root */
     function print() {
         _printRecursive(root);
+    }
+
+    /** Inserts the given value into the tree if it isn't already present
+     * @param {number} value
+     */
+    function insert(value) {
+        const newNode = new _Node(value);
+        if (root === null) root = newNode;
+
+        let current = root;
+        let parent = null;
+        while (current !== null) {
+            parent = current;
+            if (current.value > value) current = current.left;
+            else if (current.value < value) current = current.right;
+            else return root;
+        }
+
+        if (parent.value > value) parent.left = newNode;
+        else parent.right = newNode;
+
+        return root;
     }
 
     return {
