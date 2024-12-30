@@ -64,12 +64,29 @@ function Tree(arr) {
         }
     }
 
+    /** Traverses the tree inorder, and calls callback with the
+     * value of each node as an argument.
+     * @param {Function} callback A callback with 0 or 1 parameters
+     */
+    function inOrder(callback) {
+        _checkCallback(callback);
+        if (root === null) return;
+        _inOrderRecursive(root);
+
+        function _inOrderRecursive(root) {
+            if (root.left !== null) _inOrderRecursive(root.left);
+            callback(root.value);
+            if (root.right !== null) _inOrderRecursive(root.right);
+        }
+    }
+
     return {
         print,
         find,
         insert,
         remove,
         levelOrder,
+        inOrder,
     };
 
     // PRIVATE METHODS
