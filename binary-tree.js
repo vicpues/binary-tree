@@ -137,6 +137,19 @@ function Tree(arr) {
         return root;
     }
 
+    /** Checks that callback is a function with 0 or 1 parameters, and throws
+     * a TypeError if it isn't
+     * @param {Function} callback The function to be checked
+     */
+    function _checkCallback(callback) {
+        if (typeof callback !== "function") {
+            throw new TypeError("Must provide a callback function!");
+        }
+        if (callback.length > 1) {
+            throw new TypeError("Callback must accept 0 or 1 arguments");
+        }
+    }
+
     /** Prints a tree recursively, starting from \<node\> */
     function _printRecursive(node, prefix = "", isLeft = true) {
         if (node === null) return;
