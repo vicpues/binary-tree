@@ -45,11 +45,31 @@ function Tree(arr) {
         return _removeRecursive(value, root);
     }
 
+    /** Traverses the tree in level order, and calls callback with the
+     * value of each node as an argument.
+     * @param {Function} callback A callback with 0 or 1 parameters
+     */
+    function levelOrder(callback) {
+        _checkCallback(callback);
+        if (root === null) return;
+
+        const queue = new _Queue();
+        queue.enqueue(root);
+
+        while (!queue.isEmpty()) {
+            const node = queue.dequeue();
+            callback(node.value);
+            if (node.left !== null) queue.enqueue(node.left);
+            if (node.right !== null) queue.enqueue(node.right);
+        }
+    }
+
     return {
         print,
         find,
         insert,
         remove,
+        levelOrder,
     };
 
     // PRIVATE METHODS

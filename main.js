@@ -6,3 +6,5 @@ const tree = new BinaryTree(array);
 tree.insert(70);
 tree.remove(8);
 tree.print();
+const callback = (value) => console.log(value);
+tree.levelOrder(callback);
