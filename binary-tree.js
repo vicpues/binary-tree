@@ -8,6 +8,14 @@ function Tree(arr) {
         _printRecursive(root);
     }
 
+    /** Returns a tree whose root has the given value, or `null` if
+     * it isn't present
+     * @param {number} value
+     */
+    function find(value) {
+        return _findNode(value, root);
+    }
+
     /** Inserts the given value into the tree if it isn't already present
      * @param {number} value
      */
@@ -32,6 +40,7 @@ function Tree(arr) {
 
     return {
         print,
+        find,
         insert,
     };
 
@@ -57,6 +66,17 @@ function Tree(arr) {
 
             return root;
         }
+    }
+
+    /** Recursively finds the node with the given value, or null if not present
+     * @param {number} value The value of the node to be found
+     * @param {_Node} root Node from which to start the search
+     */
+    function _findNode(value, root) {
+        if (root === null) return root;
+        if (root.value > value) return _findNode(value, root.left);
+        else if (root.value < value) return _findNode(value, root.right);
+        else return root;
     }
 
     /** Prints a tree recursively, starting from \<node\> */
