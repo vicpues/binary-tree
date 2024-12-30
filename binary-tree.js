@@ -180,3 +180,52 @@ function _Node(value, parent = null, left = null, right = null) {
         right,
     };
 }
+
+/** A basic doubly linked list, useful for level order traversal of the tree */
+function _Queue() {
+    let _head = null;
+    let _tail = null;
+
+    /** A node of the queue, with `value` and references to the next and
+     * previous elements */
+    function _QueueNode(value) {
+        return {
+            value,
+            next: null,
+            prev: null,
+        };
+    }
+
+    /** Adds a value at the end of the queue */
+    function enqueue(value) {
+        const node = new _QueueNode(value);
+        if (isEmpty) {
+            _head = node;
+            _tail = node;
+            return;
+        }
+        _tail.next = node;
+        node.prev = _tail;
+        _tail = node;
+    }
+
+    /** Pops the first item in the queue and return its value */
+    function dequeue() {
+        if (isEmpty) throw new Error("Can't dequeue, the queue is empty");
+        const value = _head.value;
+        _head = _head.next;
+        _head.prev = null;
+        return value;
+    }
+
+    /** Returns `true` if the queue is empty, otherwise returns `false` */
+    function isEmpty() {
+        return _head === null;
+    }
+
+    return {
+        enqueue,
+        dequeue,
+        isEmpty,
+    };
+}
