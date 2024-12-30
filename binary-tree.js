@@ -80,6 +80,22 @@ function Tree(arr) {
         }
     }
 
+    /** Traverses the tree in preorder, and calls callback with the
+     * value of each node as an argument.
+     * @param {Function} callback A callback with 0 or 1 parameters
+     */
+    function preOrder(callback) {
+        _checkCallback(callback);
+        if (root === null) return;
+        _preOrderRecursive(root);
+
+        function _preOrderRecursive(root) {
+            callback(root.value);
+            if (root.left !== null) _preOrderRecursive(root.left);
+            if (root.right !== null) _preOrderRecursive(root.right);
+        }
+    }
+
     return {
         print,
         find,
@@ -87,6 +103,7 @@ function Tree(arr) {
         remove,
         levelOrder,
         inOrder,
+        preOrder,
     };
 
     // PRIVATE METHODS
