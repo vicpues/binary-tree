@@ -56,13 +56,14 @@ function Tree(arr) {
         unique.sort((a, b) => a - b);
         return buildRecursive(0, unique.length - 1);
 
-        function buildRecursive(start, end) {
+        function buildRecursive(start, end, parent = null) {
             if (start > end) return null;
 
             const midpoint = start + Math.floor((end - start) / 2);
             const root = new _Node(unique[midpoint]);
-            root.left = buildRecursive(start, midpoint - 1);
-            root.right = buildRecursive(midpoint + 1, end);
+            root.parent = parent;
+            root.left = buildRecursive(start, midpoint - 1, root);
+            root.right = buildRecursive(midpoint + 1, end, root);
 
             return root;
         }
@@ -101,9 +102,10 @@ function Tree(arr) {
 }
 
 /** A node of a binary tree. */
-function _Node(value, left = null, right = null) {
+function _Node(value, parent = null, left = null, right = null) {
     return {
         value,
+        parent,
         left,
         right,
     };
