@@ -29,7 +29,7 @@ function Tree(arr) {
             parent = current;
             if (current.value > value) current = current.left;
             else if (current.value < value) current = current.right;
-            else return root;
+            else return root; // Node already exists
         }
 
         if (parent.value > value) parent.left = newNode;
