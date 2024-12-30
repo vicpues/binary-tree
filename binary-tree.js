@@ -38,10 +38,18 @@ function Tree(arr) {
         return root;
     }
 
+    /** Removes the given value from the tree, if present
+     * @param {number} value
+     */
+    function remove(value) {
+        return _removeRecursive(value, root);
+    }
+
     return {
         print,
         find,
         insert,
+        remove,
     };
 
     // PRIVATE METHODS
@@ -78,6 +86,55 @@ function Tree(arr) {
         if (root.value > value) return _findNode(value, root.left);
         else if (root.value < value) return _findNode(value, root.right);
         else return root;
+    }
+
+    /** Removes the value, starting the search from root
+     * @param {number} value The value of the node to remove
+     * @param {_Node} start Node from which to start the search
+     * @returns {_Node | null}
+     */
+    function _removeRecursive(value, start) {
+        const node = _findNode(value, start);
+
+        // Case: Node not found
+        if (node === null) return root;
+
+        const parent = node.parent;
+        const isRoot = parent === null;
+        const isLeftChild = isRoot ? false : parent.left === node;
+
+        // Case: Node has 0 children (it's a leaf node)
+        if (node.left === null && node.right === null) {
+            if (isRoot) return _setRoot(null);
+            if (isLeftChild) parent.left = null;
+            else parent.right = null;
+        }
+
+        // Case: Node has 2 children
+        else if (node.left !== null && node.right !== null) {
+            let successor = node.right;
+            while (successor.left !== null) successor = successor.left;
+            node.value = successor.value;
+            _removeRecursive(node.value, node.right);
+        }
+
+        // Case: Node has 1 child
+        else {
+            const child = node.left !== null ? node.left : node.right;
+            if (isRoot) return _setRoot(child);
+            if (isLeftChild) parent.left = child;
+            else parent.right = child;
+        }
+
+        return root;
+    }
+
+    /** Sets the tree's root to a different Node
+     * @param {_Node | null} toNode The new root of the tree, or null to clear the tree
+     */
+    function _setRoot(toNode) {
+        root = toNode;
+        return root;
     }
 
     /** Prints a tree recursively, starting from \<node\> */
