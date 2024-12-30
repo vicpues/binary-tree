@@ -199,7 +199,7 @@ function _Queue() {
     /** Adds a value at the end of the queue */
     function enqueue(value) {
         const node = new _QueueNode(value);
-        if (isEmpty) {
+        if (isEmpty()) {
             _head = node;
             _tail = node;
             return;
@@ -211,10 +211,10 @@ function _Queue() {
 
     /** Pops the first item in the queue and return its value */
     function dequeue() {
-        if (isEmpty) throw new Error("Can't dequeue, the queue is empty");
+        if (isEmpty()) throw new Error("Can't dequeue, the queue is empty");
         const value = _head.value;
         _head = _head.next;
-        _head.prev = null;
+        if (!isEmpty()) _head.prev = null;
         return value;
     }
 
