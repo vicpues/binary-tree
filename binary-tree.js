@@ -112,6 +112,15 @@ function Tree(arr) {
         }
     }
 
+    /** Returns true if the height of the left subtree and the height of the
+     * right subtree differ by no more than 1
+     */
+    function isBalanced() {
+        if (root === null) return true;
+        const difference = _height(root.left) - _height(root.right);
+        return Math.abs(difference) <= 1;
+    }
+
     return {
         print,
         find,
@@ -121,6 +130,7 @@ function Tree(arr) {
         inOrder,
         preOrder,
         postOrder,
+        isBalanced,
     };
 
     // PRIVATE METHODS
