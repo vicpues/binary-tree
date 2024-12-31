@@ -220,6 +220,19 @@ function Tree(arr) {
         return Math.max(leftHeight, rightHeight) + 1;
     }
 
+    /** Returns the depth of a node, that is, its distance from the root
+     * @param {_Node | null} node The node from which to start climbing
+     * @returns {number}
+     */
+    function _depth(node) {
+        let depth = 0;
+        while (node !== null) {
+            node = node.parent;
+            depth++;
+        }
+        return depth;
+    }
+
     /** Checks that callback is a function with 0 or 1 parameters, and throws
      * a TypeError if it isn't
      * @param {Function} callback The function to be checked
