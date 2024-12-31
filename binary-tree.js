@@ -32,6 +32,7 @@ function Tree(arr) {
             else return root; // Node already exists
         }
 
+        newNode.parent = parent;
         if (parent.value > value) parent.left = newNode;
         else parent.right = newNode;
 
@@ -180,15 +181,14 @@ function Tree(arr) {
         // Case: Node not found
         if (node === null) return root;
 
-        const parent = node.parent;
-        const isRoot = parent === null;
-        const isLeftChild = isRoot ? false : parent.left === node;
+        const isRoot = node.parent === null;
+        const isLeftChild = isRoot ? false : node.parent.left === node;
 
         // Case: Node has 0 children (it's a leaf node)
         if (node.left === null && node.right === null) {
             if (isRoot) return _setRoot(null);
-            if (isLeftChild) parent.left = null;
-            else parent.right = null;
+            if (isLeftChild) node.parent.left = null;
+            else node.parent.right = null;
         }
 
         // Case: Node has 2 children
@@ -203,8 +203,9 @@ function Tree(arr) {
         else {
             const child = node.left !== null ? node.left : node.right;
             if (isRoot) return _setRoot(child);
-            if (isLeftChild) parent.left = child;
-            else parent.right = child;
+            child.parent = node.parent
+            if (isLeftChild) node.parent.left = child;
+            else node.parent.right = child;
         }
 
         return root;
