@@ -123,6 +123,15 @@ function Tree(arr) {
         return Math.abs(difference) <= 1;
     }
 
+    /** Rebuilds the tree if it isn't balanced */
+    function rebalance() {
+        if (isBalanced()) return root;
+        const sortedArray = [];
+        inOrder((value) => sortedArray.push(value));
+        root = _buildTree(sortedArray);
+        return root;
+    }
+
     return {
         print,
         has,
@@ -133,6 +142,7 @@ function Tree(arr) {
         preOrder,
         postOrder,
         isBalanced,
+        rebalance,
     };
 
     // PRIVATE METHODS
