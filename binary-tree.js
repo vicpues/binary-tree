@@ -211,6 +211,7 @@ function Tree(arr) {
     /** Returns the height of a node, the distance from a node to the furthest
      * leaf that can be reached from it.
      * @param {_Node | null} node The node from which to start the search
+     * @returns {number}
      */
     function _height(node) {
         if (node === null) return 0;
