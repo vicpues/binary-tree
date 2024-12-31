@@ -208,6 +208,17 @@ function Tree(arr) {
         return root;
     }
 
+    /** Returns the height of a node, the distance from a node to the furthest
+     * leaf that can be reached from it.
+     * @param {_Node | null} node The node from which to start the search
+     */
+    function _height(node) {
+        if (node === null) return 0;
+        const leftHeight = _height(node.left);
+        const rightHeight = _height(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
     /** Checks that callback is a function with 0 or 1 parameters, and throws
      * a TypeError if it isn't
      * @param {Function} callback The function to be checked
