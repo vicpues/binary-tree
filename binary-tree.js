@@ -8,12 +8,13 @@ function Tree(arr) {
         _printRecursive(root);
     }
 
-    /** Returns a tree whose root has the given value, or `null` if
-     * it isn't present
+    /** Returns `true` if the value exists in the tree, of `false` if it doesn't
      * @param {number} value
      */
-    function find(value) {
-        return _findNode(value, root);
+    function has(value) {
+        const node = _findNode(value, root);
+        if (node === null) return false;
+        return true;
     }
 
     /** Inserts the given value into the tree if it isn't already present
@@ -124,7 +125,7 @@ function Tree(arr) {
 
     return {
         print,
-        find,
+        has,
         insert,
         remove,
         levelOrder,
@@ -203,7 +204,7 @@ function Tree(arr) {
         else {
             const child = node.left !== null ? node.left : node.right;
             if (isRoot) return _setRoot(child);
-            child.parent = node.parent
+            child.parent = node.parent;
             if (isLeftChild) node.parent.left = child;
             else node.parent.right = child;
         }
