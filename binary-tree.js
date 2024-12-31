@@ -112,8 +112,8 @@ function Tree(arr) {
         }
     }
 
-    /** Returns true if the height of the left subtree and the height of the
-     * right subtree differ by no more than 1
+    /** Returns `true` if the height of the left subtree and the height of the
+     * right subtree differ by no more than 1. Otherwise returns `false`
      */
     function isBalanced() {
         if (root === null) return true;

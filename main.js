@@ -11,5 +11,6 @@ tree.remove(7);
 tree.remove(5);
 console.log(tree.isBalanced());
 tree.remove(4);
+tree.remove(3);
 tree.print();
 console.log(tree.isBalanced());
