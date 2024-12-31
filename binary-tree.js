@@ -1,7 +1,7 @@
 module.exports = Tree;
 
 function Tree(arr) {
-    let root = _buildTree(arr);
+    let root = Array.isArray(arr) ? _buildTree(arr) : null;
 
     /** Prints a formatted version of the tree, starting at the root */
     function print() {
@@ -149,10 +149,11 @@ function Tree(arr) {
 
     /** Returns the root node of a new tree created from arr, or `null` if
      * the array is empty
-     * @param {Array} arr The array from which to build the tree
+     * @param {[number]} arr The array from which to build the tree
      * @return {_Node | null}
      */
     function _buildTree(arr) {
+        if (arr.length === 0) _setRoot(null);
         const unique = [...new Set(arr)];
         unique.sort((a, b) => a - b);
         return buildRecursive(0, unique.length - 1);
@@ -289,7 +290,9 @@ function Tree(arr) {
     }
 }
 
-/** A node of a binary tree. */
+/** A node of a binary tree.
+ * @param {number} value
+ */
 function _Node(value, parent = null, left = null, right = null) {
     return {
         value,
